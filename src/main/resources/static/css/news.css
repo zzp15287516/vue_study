@@ -1,0 +1,44 @@
+body{magin:0;}
+.tab{
+	width: 1000px;
+	height: 3000px;
+	background: beige;
+	overflow:auto;
+	margin: auto;
+}
+.list{
+	width: 500px;
+	height: 500px;
+	border: solid 1px red;
+	overflow:auto;
+	float: left;
+}
+li{
+	list-style: none;
+	width: 100px;
+}
+.out{
+	float: left;
+}
+.in{
+	display: none;
+}
+a:link,a:visited,a:active{
+	text-decoration:none;
+	color: cornflowerblue;
+}
+a:hover{
+	text-decoration:none;
+	color: blue;
+}
+.title{
+	font-size: 30px;
+	font-weight: 700;
+}
+.news{
+	width: 900px;
+	height: 1000px;
+	margin-top: 100px ;
+	margin-left: auto;
+	margin-right: auto;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/news.css" />
+</head>
+<body>
+<div id="tab" class="tab">
+    <ul >
+        <li v-for="(p,index) in treeData" :key="index" :id="p.id" v-if="p.parent === '#'" class="out">
+            <a  v-text="p.text" href="index.html" ></a>
+            <ul class="in" :parent="p.id">
+               <li v-for="(son,index) in treeData" v-if="son.parent === p.id" :id="son.id">
+                   <a  v-text="son.text" href="index.html"></a>
+               </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="news" >
+        <p v-text="newsData.title" class="title"></p>
+        <div v-html="showHtml(newsData.content)">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/v.min.js"></script>
+<script type="text/javascript" src="/js/axios.min.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#tab',
+        data () {
+          return{
+              treeData:null,
+              newsData:null
+          }
+        },
+        mounted(){
+            axios
+            .get('/treeData')
+                .then(response => (this.treeData = response.data))
+                .catch(function (error) {
+                    console.log(error);
+                }),
+                axios
+                    .get('/newsData')
+                    .then(response => (this.newsData = response.data))
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+        },
+        methods:{
+            showHtml(str){
+                return str.replace(str ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+                    .replace(/&lt;/g, "<")
+                    .replace(/&gt;/g, ">")
+                    .replace(/&quot;/g, "\"")
+                    .replace(/&#39;/g, "\'");
+            }
+        }
+    })
+</script>
+</body>
+</html>
